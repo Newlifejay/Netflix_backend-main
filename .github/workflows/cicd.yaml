@@ -1,5 +1,5 @@
 
-Name: Build and push docker image 
+name: Build and push docker image 
 
 on:
   push:
