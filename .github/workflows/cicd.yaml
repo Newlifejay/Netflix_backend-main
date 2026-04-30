@@ -39,5 +39,5 @@ jobs:
 
       - name: Docker push
         run: |
-          docker tag netflix_backend-main:latest ${{ secrets_AWS_ACCOUNT_ID }}.dkr.ecr.us-east-2.amazonaws.com/netflix_backend-main:${GITHUB_RUN_NUMBER}
-          docker push  ${{ secrets_AWS_ACCOUNT_ID }}.dkr.ecr.us-east-2.amazonaws.com/netflix_backend-main:${GITHUB_RUN_NUMBER}
+          docker tag netflix_backend-main:latest 863355751988.dkr.ecr.us-east-2.amazonaws.com/netflix_backend-main:${GITHUB_RUN_NUMBER}
+          docker push 863355751988.dkr.ecr.us-east-2.amazonaws.com/netflix_backend-main:${GITHUB_RUN_NUMBER}
