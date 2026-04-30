@@ -32,7 +32,11 @@ jobs:
       # -----------------------------
       - name: Build Image
         run: |
-          echo "${{ vars.ENV_FILE}}" > .env
+          env:
+              MONGO_DATABASE: ${{ vars.MONGO_DATABASE }}
+              MONGO_USER: ${{ vars.MONGO_USER }}
+              MONGO_PASSWORD: ${{ vars.MONGO_PASSWORD }}
+              MONGO_CLUSTER: ${{ vars.MONGO_CLUSTER }}
           ls -la
           docker build -t netflix_backend-main:latest .
 
