@@ -26,5 +26,5 @@
 FROM eclipse-temurin:25 
 RUN mkdir /opt/app
 COPY target/*.jar /opt/app/japp.jar
-COPY .env /app/src/main/resources/ .env
+COPY .env /opt/app/.env
 ENTRYPOINT ["java", "-jar", "/opt/app/japp.jar"]
