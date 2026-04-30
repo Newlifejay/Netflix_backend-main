@@ -16,10 +16,7 @@ COPY ./pom.xml /app
 
 #BUILD THE APPLICATION
 RUN mvn -f /app/pom.xml clean package -DskipTests
-
-#COPY THE BUILT JAR FILE TO THE CONTAINER
-COPY ./target/*.jar /app/app.jar
-
+RUN ls -la /app/target 
 
 EXPOSE 8080
 
