@@ -22,7 +22,7 @@
 
 # ENTRYPOINT ["java", "-jar", "app.jar"]
 
-==========================================
+#==========================================
 FROM eclipse-temurin:25 
 RUN mkdir /opt/app
 COPY japp.jar /opt/app
