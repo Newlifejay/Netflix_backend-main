@@ -33,7 +33,7 @@ jobs:
       # -----------------------------
       - name: Build Image
         run: |
-          docker build -t NETFLIX_BACKEND-MAIN:latest .
+          docker build -t netflix_backend-main:latest .
 
       # =============================
       # PUSH TO AWS (ECR)
