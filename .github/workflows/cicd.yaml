@@ -1,19 +1,65 @@
-
-name: Build and push docker image 
+name: Build and Push to Azure & AWS
 
 on:
   push:
-    branch: [main] 
+    branches: [ "main" ]
 
-jobs: 
+jobs:
   build-and-push:
-    runs-on: Ubuntu-latest 
+    runs-on: ubuntu-latest
 
-    steps: 
-    - name: Check out the repository
-      uses: actions/checkout@v2 
-    
-    - name: Docker build
-      run: |
-         docker build -t netflix_backend:latest .
-    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # -----------------------------
+      # Set up Java 25
+      # -----------------------------
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+
+      # -----------------------------
+      # Build JAR
+      # -----------------------------
+      - name: Build with Maven
+        run: |
+          cd app
+          mvn clean package -DskipTests
+
+      # -----------------------------
+      # Build Docker Image
+      # -----------------------------
+      - name: Build Image
+        run: |
+          docker build -t NETFLIX_BACKEND-MAIN:latest .
+
+      # =============================
+      # PUSH TO AWS (ECR)
+      # =============================
+      # #- name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+
+      # - name: Login to ECR
+      #   run: |
+      #     ECR_URI=$(aws ecr describe-repositories \
+      #       --repository-names ${{ secrets.ECR_REPOSITORY }} \
+      #       --query "repositories[0].repositoryUri" \
+      #       --output text)
+
+      #     aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
+      #     | docker login --username AWS --password-stdin $(echo $ECR_URI | cut -d'/' -f1)
+
+      # - name: Tag for ECR
+      #   run: |
+      #     docker tag movie-backend:latest $ECR_URI:latest
+
+      # - name: Push to ECR
+      #   run: |
+      #     docker push $ECR_URI:latest
