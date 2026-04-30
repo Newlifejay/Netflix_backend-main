@@ -15,8 +15,8 @@ jobs:
    # Build Docker Image
       # -----------------------------
       - name: Build JAR
-          run: mvn clean package -DskipTests
-          
+        run: mvn clean package -DskipTests
+
       - name: Build Image
         run: |
           docker build -t netflix_backend-main:latest .
