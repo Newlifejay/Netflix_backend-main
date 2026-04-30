@@ -5,6 +5,7 @@ FROM eclipse-temurin:25-jdk-alpine
 WORKDIR /app
 
 # Copy Source files and pom.xml
+COPY .env /app/src/main/resources/.env
 COPY ./src /app/src
 COPY ./pom.xml /app/
 
