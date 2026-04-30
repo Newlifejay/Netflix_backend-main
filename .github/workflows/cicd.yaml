@@ -26,7 +26,6 @@ jobs:
       # -----------------------------
       - name: Build with Maven
         run: |
-          cd app
           mvn clean package -DskipTests
 
       # -----------------------------
