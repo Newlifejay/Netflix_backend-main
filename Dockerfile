@@ -1,19 +1,26 @@
-# Use a lightweight Java runtime
-FROM eclipse-temurin:25-jdk-alpine
+FROM ubuntu 
 
-# Set working directory
+#INSTALL NECESSARY PACKAGES
+#==============================
+RUN apt install && sudo apt upgrade -y
+RUN apt install openjdk-17-jre-headless -y
+RUN apt install maven -y
+
+#SET THE WORKING DIRECTORY
+#================================
 WORKDIR /app
 
-# Copy Source files and pom.xml
-COPY .env /app/src/main/resources/.env
+#COPY SOURCE FILES AND POM.XML
 COPY ./src /app/src
-COPY ./pom.xml /app/
+COPY ./pom.xml /app
 
-#Buid the application
+#BUILD THE APPLICATION
 RUN mvn -f /app/pom.xml clean package -DskipTests
 
-# Expose application port (adjust if needed)
+#COPY THE BUILT JAR FILE TO THE CONTAINER
+COPY ./target/*.jar /app/app.jar
+
+
 EXPOSE 8080
 
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
