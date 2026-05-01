@@ -32,4 +32,4 @@ jobs:
 
       - name: Push Image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/netflix_backend-main:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/netflix_backend:latest
